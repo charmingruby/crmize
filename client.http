@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3000
+
+# @name create_journal
+POST {{baseUrl}}/journals
+Content-Type: application/json
+
+{
+	"name": "dummy journal", 
+	"email": "gustavodiasa2121@gmail.com",       
+	"subscribers": ["dummy1@example.com", "dummy2@example.com"],
+	"title": "Dummy Journal",      
+	"subject": "#1 Edition",    
+	"content": "First test journal edition"    
+}
