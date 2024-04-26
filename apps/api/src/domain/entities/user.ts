@@ -8,6 +8,7 @@ interface UserProps {
   role: string
   password: string
   deletedBy?: UniqueEntityId
+  settedUpAt?: Date | null
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -59,6 +60,14 @@ export class User extends CoreEntity<UserProps> {
 
   set deletedBy(deletedBy: UniqueEntityId) {
     this.props.deletedBy = deletedBy
+  }
+
+  get settetUpAt() {
+    return this.props.settedUpAt
+  }
+
+  set settetUpAt(settetUpAt: Date) {
+    this.props.settedUpAt = settetUpAt
   }
 
   get createdAt() {
