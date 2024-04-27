@@ -1,7 +1,8 @@
 import { CoreEntity } from '@/core/entities/core-entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
-interface UserProps {
+export interface UserProps {
   name: string
   email: string
   phoneNumber: string
@@ -78,8 +79,19 @@ export class User extends CoreEntity<UserProps> {
     return this.props.updatedAt
   }
 
-  static create(props: UserProps, id?: number, uuid?: UniqueEntityId) {
-    const user = new User(props, id, uuid)
+  static create(
+    props: Optional<UserProps, 'createdAt'>,
+    id?: number,
+    uuid?: UniqueEntityId,
+  ) {
+    const user = new User(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id,
+      uuid,
+    )
     return user
   }
 }
