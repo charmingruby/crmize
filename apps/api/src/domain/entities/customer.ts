@@ -7,6 +7,9 @@ interface CustomerProps {
   email: string
   phoneNumber: string
   job: string
+  country: string
+  state: string
+  city: string
   deletedBy?: UniqueEntityId
   createdAt: Date
   updatedAt?: Date | null
@@ -27,6 +30,18 @@ export class Customer extends CoreEntity<CustomerProps> {
 
   get phoneNumber() {
     return this.props.phoneNumber
+  }
+
+  get country() {
+    return this.props.country
+  }
+
+  get state() {
+    return this.props.state
+  }
+
+  get city() {
+    return this.props.city
   }
 
   get job() {
