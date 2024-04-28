@@ -2,13 +2,39 @@ import { User } from '@/domain/entities/user'
 import { UsersRepository } from '@/domain/repositories/users-repository'
 
 export class InMemoryUsersRepository implements UsersRepository {
-  items: User[] = []
+  public items: User[] = []
 
-  async findByUUID(uuid: string): Promise<User> {
-    throw new Error('Method not implemented.')
+  async create(user: User) {
+    this.items.push(user)
   }
 
-  async create(user: User): Promise<void> {
-    throw new Error('Method not implemented.')
+  async findByEmail(email: string) {
+    const user = this.items.find((item) => item.email === email)
+
+    if (!user) {
+      return null
+    }
+
+    return user
+  }
+
+  async findByPhoneNumber(phoneNumber: string) {
+    const user = this.items.find((item) => item.phoneNumber === phoneNumber)
+
+    if (!user) {
+      return null
+    }
+
+    return user
+  }
+
+  async findByUUID(uuid: string) {
+    const user = this.items.find((item) => item.uuid.toString() === uuid)
+
+    if (!user) {
+      return null
+    }
+
+    return user
   }
 }

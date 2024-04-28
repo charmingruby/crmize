@@ -1,14 +1,12 @@
-@baseUrl = http://localhost:3000
+@baseUrl = http://localhost:3333
 
-# @name create_journal
-POST {{baseUrl}}/journals
+# @name sign-up
+POST {{baseUrl}}/sign-up
 Content-Type: application/json
 
 {
-	"name": "dummy journal", 
-	"email": "gustavodiasa2121@gmail.com",       
-	"subscribers": ["dummy1@example.com", "dummy2@example.com"],
-	"title": "Dummy Journal",      
-	"subject": "#1 Edition",    
-	"content": "First test journal edition"    
+	"name": "name",
+  	"email": "john@doe.com",
+  	"phoneNumber": "phoneNumber",
+  	"password": "password"
 }

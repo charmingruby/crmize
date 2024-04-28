@@ -2,15 +2,19 @@ import { CoreEntity } from '@/core/entities/core-entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+export type UserRole = 'APPLICANT' | 'MANAGER'
+export type ApplicationStatus = 'PENDING' | 'DENIED' | 'ACCEPTED'
+
 export interface UserProps {
   name: string
   email: string
   phoneNumber: string
-  role: string
+  role: UserRole
   password: string
-  deletedBy?: UniqueEntityId
-  settedUpAt?: Date | null
+  applicationStatus: ApplicationStatus
   createdAt: Date
+  applicationAnsweredAt?: Date | null
+  deletedAt?: Date | null
   updatedAt?: Date | null
 }
 
@@ -43,7 +47,7 @@ export class User extends CoreEntity<UserProps> {
     return this.props.role
   }
 
-  set role(role: string) {
+  set role(role: UserRole) {
     this.props.role = role
   }
 
@@ -55,20 +59,28 @@ export class User extends CoreEntity<UserProps> {
     this.props.password = password
   }
 
-  get deletedBy() {
-    return this.props.deletedBy
+  get applicationStatus() {
+    return this.props.applicationStatus
   }
 
-  set deletedBy(deletedBy: UniqueEntityId) {
-    this.props.deletedBy = deletedBy
+  set applicationStatus(applicationStatus: ApplicationStatus) {
+    this.props.applicationStatus = applicationStatus
   }
 
-  get settetUpAt() {
-    return this.props.settedUpAt
+  get applicationAnsweredAt() {
+    return this.props.applicationAnsweredAt
   }
 
-  set settetUpAt(settetUpAt: Date) {
-    this.props.settedUpAt = settetUpAt
+  set applicationAnsweredAt(applicationAnsweredAt: Date) {
+    this.props.applicationAnsweredAt = applicationAnsweredAt
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt
+  }
+
+  set deletedAt(deletedAt: Date) {
+    this.props.deletedAt = deletedAt
   }
 
   get createdAt() {
@@ -80,13 +92,17 @@ export class User extends CoreEntity<UserProps> {
   }
 
   static create(
-    props: Optional<UserProps, 'createdAt'>,
+    props: Optional<UserProps, 'applicationStatus' | 'createdAt'>,
     id?: number,
     uuid?: UniqueEntityId,
   ) {
     const user = new User(
       {
         ...props,
+        applicationStatus: props.applicationStatus ?? 'PENDING',
+        applicationAnsweredAt: props.applicationAnsweredAt ?? null,
+        deletedAt: props.deletedAt ?? null,
+        updatedAt: props.updatedAt ?? null,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

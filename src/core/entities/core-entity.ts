@@ -9,6 +9,10 @@ export abstract class CoreEntity<Props> {
     return this._id
   }
 
+  set id(id: number) {
+    this._id = id
+  }
+
   get uuid() {
     return this._uuid
   }

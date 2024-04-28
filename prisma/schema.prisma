@@ -8,8 +8,19 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(uuid())
-  email String @unique
+  id                    Int       @id @default(autoincrement())
+  uuid                  String    @unique
+  name                  String
+  email                 String    @unique
+  phoneNumber           String    @unique @map("phone_number")
+  role                  String
+  password              String
+  applicationStatus     String
+  applicationAnsweredAt DateTime? @map("application_answered_at")
+  deletedAt             DateTime? @map("deleted_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  createdAt             DateTime  @default(now()) @map("created_at")
 
+  @@index(fields: [uuid])
   @@map("users")
 }
