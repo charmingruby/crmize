@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common'
-import { BcryptHashService } from './bcrypt-hash'
+
 import { HashService } from '@/domain/cryptography/hash'
+
+import { BcryptHashService } from './bcrypt-hash'
 
 @Module({
   providers: [{ provide: HashService, useClass: BcryptHashService }],

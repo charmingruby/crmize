@@ -6,6 +6,6 @@ describe('[UNIT] Conflict Error', () => {
     const err = new ConflictError(field)
 
     expect(err).toBeInstanceOf(ConflictError)
-    expect(err.message).toEqual(`${field} is already taken.`)
+    expect(err.message).toEqual(`${field} is already taken`)
   })
 })

@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from './database/prisma/prisma.service'
-import { ConfigModule } from '@nestjs/config'
-import { envSchema } from './env/env'
-import { EnvModule } from './env/env.module'
 import { HttpModule } from './http/http.module'
+import { APP_GUARD } from '@nestjs/core'
+import { AuthGuard } from './auth/guards/auth.guard'
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
-      isGlobal: true,
-    }),
-    EnvModule,
-    HttpModule,
+  imports: [HttpModule],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
   ],
-  providers: [PrismaService],
 })
 export class AppModule {}

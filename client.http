@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:3333
+@accessToken = {{sign_in.response.body.accessToken}}
 
-# @name sign-up
+# @name sign_up
 POST {{baseUrl}}/sign-up
 Content-Type: application/json
 
@@ -10,3 +11,21 @@ Content-Type: application/json
   	"phoneNumber": "phoneNumber",
   	"password": "password"
 }
+
+###
+
+# @name sign_in
+POST {{baseUrl}}/sign-in
+Content-Type: application/json
+
+{
+  	"email": "john@doe.com",
+  	"password": "password"
+}
+
+###
+
+# @name me
+POST {{baseUrl}}/me
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}

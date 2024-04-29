@@ -4,8 +4,23 @@ import { UsersRepository } from '@/domain/repositories/users-repository'
 export class InMemoryUsersRepository implements UsersRepository {
   public items: User[] = []
 
+  async save(user: User): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === user.id)
+    this.items[itemIndex] = user
+  }
+
   async create(user: User) {
     this.items.push(user)
+  }
+
+  async findById(id: number) {
+    const user = this.items.find((item) => item.id === id)
+
+    if (!user) {
+      return null
+    }
+
+    return user
   }
 
   async findByEmail(email: string) {

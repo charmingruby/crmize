@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { RegisterUseCase } from '@/domain/use-cases/register'
 import { ConflictError } from '@/domain/errors/conflict'
+import { Public } from '@/infra/auth/decorators/public.decorator'
 
 const registerBodySchema = z.object({
   name: z.string(),
@@ -26,6 +27,7 @@ type RegisterBodySchema = z.infer<typeof registerBodySchema>
 export class RegisterController {
   constructor(private registerUseCase: RegisterUseCase) {}
 
+  @Public()
   @Post()
   @HttpCode(201)
   async handle(@Body(bodyValidationPipe) body: RegisterBodySchema) {
